@@ -79,12 +79,14 @@ namespace OilTempJan
             await Navigation.PushAsync(new SettingsPage(), true);
         }
 
+        bool first_start = true;
         private async void OnContentLoaded(object sender, EventArgs e)
         {
             try
             {
-                if (Preferences.Default.Get("bluetooth_id", "null") != "null")
+                if (Preferences.Default.Get("bluetooth_id", "null") != "null" && first_start)
                 {
+                    first_start = false;
                     await Navigation.PushAsync(new OilTemp(), true);
                 }
             } catch (Exception ex)
