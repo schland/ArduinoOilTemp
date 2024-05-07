@@ -7,5 +7,21 @@ You need:
 - a 10k Resistor
 - some Cables
 
+Arduino Libraries used:
+- TFT_eSPI
+- GC9A01_DRIVER
+- RREFont
+- ArduinoBLE
+- Adafruit_ADS1X15
+
+  **Make sure to select "Tool > Pin Numbering -> GPIO" in Arduino IDE**
+
+
+## Video
+[![Arduino Oiltemp Sample!](https://img.youtube.com/vi/02bOQs6i7Vk/sddefault.jpg)](https://www.youtube.com/watch?v=02bOQs6i7Vk "Arduino Oiltemp Sample!")
+
+## Image
+![Image](https://i.ibb.co/6FqkT8w/1715090801637.jpg)
+
 ## Layout
 ![Layout](https://raw.githubusercontent.com/schland/ArduinoOilTemp/main/Arduino/oiltempjan_Steckplatine.png)
