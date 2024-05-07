@@ -16,6 +16,7 @@ Arduino Libraries used:
 
   **Make sure to select "Tool > Pin Numbering -> GPIO" in Arduino IDE**
 
+The Oiltemp App is a .NET MAUI Universal application and should run under Windows/Android/iOS
 
 ## Video
 [![Arduino Oiltemp Sample!](https://img.youtube.com/vi/02bOQs6i7Vk/sddefault.jpg)](https://www.youtube.com/watch?v=02bOQs6i7Vk "Arduino Oiltemp Sample!")
