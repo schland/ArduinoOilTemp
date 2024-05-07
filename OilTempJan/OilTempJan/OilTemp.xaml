@@ -5,66 +5,48 @@
              x:Class="OilTempJan.OilTemp"
              Title="OilTemp"
              Loaded="OnContentLoaded"
-             Disappearing="OnDisappearing" >
+             Disappearing="OnDisappearing" 
+             BackgroundColor="Black">
     <VerticalStackLayout>
         <ActivityIndicator x:Name="ActivityIndicator" IsRunning="false"
            Color="Blue" />
-        <Label 
-            x:Name="OiltempLabel"
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        <gauge:SfRadialGauge x:Name="distanceTrackerGauge" HorizontalOptions="Center">
+        <gauge:SfRadialGauge x:Name="oiltempGauge" HorizontalOptions="Center" BackgroundColor="Black">
             <gauge:SfRadialGauge.Axes>
                 <gauge:RadialAxis Minimum="0"
                                           Maximum="130"
                                           ShowTicks="False"
                                           ShowLabels="False"
                                           EnableLoadingAnimation="True"
-                                          AnimationDuration="2000">
+                                          AnimationDuration="2000" >
+                    <gauge:RadialAxis.AxisLineStyle>
+                        <gauge:RadialLineStyle ThicknessUnit="Pixel" Fill="#3F3F3F"
+                         Thickness="40"/>
+                    </gauge:RadialAxis.AxisLineStyle>
                     <gauge:RadialAxis.Annotations>
-                        <gauge:GaugeAnnotation 
-                                                       >
+                        <gauge:GaugeAnnotation>
                             <gauge:GaugeAnnotation.Content>
-                                <VerticalStackLayout>
-                                    <Label     x:Name="temperatureLabel"
-                                               Text="123°C"
-                                               FontSize="50" HorizontalTextAlignment="Center"
-                                               FontAttributes="Bold" TextColor="{AppThemeBinding Light={StaticResource TextColourLight}, Dark={StaticResource TextColour}}">
-                                    </Label>
-                                </VerticalStackLayout>
-
-                            </gauge:GaugeAnnotation.Content>
-                        </gauge:GaugeAnnotation>
-
-                        <gauge:GaugeAnnotation DirectionValue="124"
-                                                       PositionFactor="1"
-                                                       HorizontalAlignment="Start">
-                            <gauge:GaugeAnnotation.Content>
-                                <Label Text="0"
-                                               FontSize="14"
-                                               TextColor="{AppThemeBinding Light={StaticResource TextColourLight}, Dark={StaticResource TextColour}}" />
-                            </gauge:GaugeAnnotation.Content>
-                        </gauge:GaugeAnnotation>
-
-                        <gauge:GaugeAnnotation DirectionValue="58"
-                                                       PositionFactor="1">
-                            <gauge:GaugeAnnotation.Content>
-                                <Label Text="240"
-                                               FontSize="14"
-                                               TextColor="{AppThemeBinding Light={StaticResource TextColourLight}, Dark={StaticResource TextColour}}" />
+                                <Label x:Name="annotationLabel" Text="0°C"
+                                    FontAttributes="Bold" FontSize="60" TextColor="Black"/>
                             </gauge:GaugeAnnotation.Content>
                         </gauge:GaugeAnnotation>
                     </gauge:RadialAxis.Annotations>
 
                     <gauge:RadialAxis.Pointers>
                         <gauge:RangePointer         x:Name="rangePointer"
-                                                    PointerWidth="30"
-                                                    PointerOffset="-12"
-                                                    CornerStyle="BothCurve">
+                                                    PointerWidth="40"
+                                                    PointerOffset="0"
+                                                    CornerStyle="BothFlat">
                             <gauge:RangePointer.GradientStops>
                                 <gauge:GaugeGradientStop Value="0"
                                                                  Color="#0000FF" />
+                                <gauge:GaugeGradientStop Value="10"
+                                                                 Color="#0000FF" />
+                                <gauge:GaugeGradientStop Value="70"
+                                                                 Color="#00FF00" />
+                                <gauge:GaugeGradientStop Value="90"
+                                                                 Color="#00FF00" />
+                                <gauge:GaugeGradientStop Value="120"
+                                                                 Color="#FF0000" />
                                 <gauge:GaugeGradientStop Value="130"
                                                                  Color="#FF0000" />
                             </gauge:RangePointer.GradientStops>

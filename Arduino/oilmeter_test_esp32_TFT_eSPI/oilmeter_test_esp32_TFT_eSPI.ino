@@ -110,9 +110,10 @@ void setup()
   digitalWrite(TFT_BL, LOW);
 
   Serial.begin(9600);
- // while(!Serial);
   
   Serial.println("Starting OilMeter Jan");
+
+  Serial.flush();
 
   uint8_t start_setup_millis = millis();
 
@@ -174,6 +175,7 @@ void setup()
   Serial.print("Peripheral device MAC: ");
   Serial.println(BLE.address());
   Serial.println("Waiting for connections...");
+  Serial.flush();
 
   // Bootup Splash Screen 5seconds but calculate already used time in, so that in sum bootup is 5s
   delay(5000-(millis()-start_setup_millis));
@@ -497,7 +499,7 @@ unsigned int blue_to_green_to_red(int i, int angle, int vmin, int vmax)
   // map angle i to value
   byte value = map(i, -angle, angle, vmin, vmax);
 
-  // blue until 50
+  // blue until 10
   if( value < 10 ) {
     blue = 31;
     green = 0;

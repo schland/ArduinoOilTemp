@@ -14,39 +14,46 @@ public partial class SettingsPage : ContentPage
 
     private async void ScanDevicesClicked(object sender, EventArgs e)
     {
-        await MainPage.CheckAndRequestBluetoothPermission();
-        await MainPage.CheckAndRequestLocationWhenInUsePermission();
-
-        ActivityIndicator.IsRunning = true;
-
-        var ble = CrossBluetoothLE.Current;
-        var adapter = CrossBluetoothLE.Current.Adapter;
-
-        var state = ble.State;
-        Debug.WriteLine($"The bluetooth state is {state}");
-
-        List<Plugin.BLE.Abstractions.Contracts.IDevice> deviceList = new List<Plugin.BLE.Abstractions.Contracts.IDevice>();
-
-        adapter.DeviceDiscovered += (s, a) => deviceList.Add(a.Device);
-        await adapter.StartScanningForDevicesAsync();
-
-        Debug.WriteLine($"Found {deviceList.Count} devices.");
-
-        List<BluetoothDevice> devices = new List<BluetoothDevice>();
-
-
-        foreach (var device in deviceList)
+        try
         {
-            BluetoothDevice device2 = new BluetoothDevice();
-            device2.Name = device.Name;
-            device2.Id = device.Id;
-            devices.Add(device2);
-            Debug.WriteLine($"\t{device.Name} {device.Id} {device.State}");
+            await MainPage.CheckAndRequestBluetoothPermission();
+            await MainPage.CheckAndRequestLocationWhenInUsePermission();
+
+            ActivityIndicator.IsRunning = true;
+
+            var ble = CrossBluetoothLE.Current;
+            var adapter = CrossBluetoothLE.Current.Adapter;
+
+            var state = ble.State;
+            Debug.WriteLine($"The bluetooth state is {state}");
+
+            List<Plugin.BLE.Abstractions.Contracts.IDevice> deviceList = new List<Plugin.BLE.Abstractions.Contracts.IDevice>();
+
+            adapter.DeviceDiscovered += (s, a) => deviceList.Add(a.Device);
+            await adapter.StartScanningForDevicesAsync();
+
+            Debug.WriteLine($"Found {deviceList.Count} devices.");
+
+            List<BluetoothDevice> devices = new List<BluetoothDevice>();
+
+
+            foreach (var device in deviceList)
+            {
+                BluetoothDevice device2 = new BluetoothDevice();
+                device2.Name = device.Name;
+                device2.Id = device.Id;
+                devices.Add(device2);
+                Debug.WriteLine($"\t{device.Name} {device.Id} {device.State}");
+            }
+
+            BluetoothDevicesListView.ItemsSource = devices.DistinctBy(x => x.Id);
+
+            ActivityIndicator.IsRunning = false;
         }
-
-        BluetoothDevicesListView.ItemsSource = devices.DistinctBy(x => x.Id);
-
-        ActivityIndicator.IsRunning = false;
+        catch (Exception ex)
+        {
+            await DisplayAlert("Error", "Exception: " + ex.ToString() + "\nMessage: " + ex.Message + "\nBacktrace:" + ex.StackTrace.ToString(), "OK");
+        }
     }
 
     private async void ConnectBtnClicked(object sender, EventArgs e)

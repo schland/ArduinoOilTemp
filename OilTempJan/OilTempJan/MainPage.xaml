@@ -1,32 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="OilTempJan.MainPage">
-
+             x:Class="OilTempJan.MainPage"
+             Loaded="OnContentLoaded" >
     <ScrollView>
         <VerticalStackLayout
             Padding="30,0"
             Spacing="25">
-            
-            <Label
-                x:Name="Label"
-                Text=""
-                Style="{StaticResource Headline}"
-                SemanticProperties.HeadingLevel="Level1" />
 
-            <Button
-                x:Name="CounterBtn"
-                Text="Click me" 
-                SemanticProperties.Hint="Counts the number of times you click"
-                Clicked="OnCounterClicked"
-                HorizontalOptions="Fill" />
-            
-            <Button
-                x:Name="GetValueFastBtn"
-                Text="Get Value fast" 
-                SemanticProperties.Hint="Counts the number of times you click"
-                Clicked="OnGetValueFast"
-                HorizontalOptions="Fill" />
             <Button
                 x:Name="SettingsBtn"
                 Text="Settings" 

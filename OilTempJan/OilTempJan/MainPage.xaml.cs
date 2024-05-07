@@ -65,124 +65,6 @@ namespace OilTempJan
             return status;
         }
 
-        private async void OnCounterClicked(object sender, EventArgs e)
-        {
-            await CheckAndRequestBluetoothPermission();
-            await CheckAndRequestLocationWhenInUsePermission();
-
-            Label.Text = "";
-
-            var ble = CrossBluetoothLE.Current;
-            var adapter = CrossBluetoothLE.Current.Adapter;
-
-            var state = ble.State;
-            Debug.WriteLine($"The bluetooth state is {state}");
-
-            List<Plugin.BLE.Abstractions.Contracts.IDevice> deviceList = new List<Plugin.BLE.Abstractions.Contracts.IDevice>();
-
-            adapter.DeviceDiscovered += (s, a) => deviceList.Add(a.Device);
-            await adapter.StartScanningForDevicesAsync();
-
-            Debug.WriteLine($"Found {deviceList.Count} devices.");
-
-            foreach (var device in deviceList)
-            {
-                Debug.WriteLine($"\t{device.Name} {device.Id} {device.State}");
-            }
-
-            //var nano33ble = deviceList.First(device => device.Name == "Nano33BLE");
-
-            //try
-            //{
-            //    await adapter.ConnectToDeviceAsync(nano33ble);
-            //}
-            //catch (DeviceConnectionException ex)
-            //{
-            //    throw ex;
-            //    // ... could not connect to device
-            //}
-
-
-            //var services = await nano33ble.GetServicesAsync();
-
-            //try
-            //{
-            //    await adapter.DisconnectDeviceAsync(nano33ble);
-            //}
-            //catch (DeviceConnectionException ex)
-            //{
-            //    throw ex;
-            //    // ... could not connect to device
-            //}
-
-
-            // 00000000-0000-0000-0000-30a7c44c2462
-            try
-            {
-                var nano33ble = await adapter.ConnectToKnownDeviceAsync(Guid.Parse("00000000-0000-0000-0000-ecda3b60165d"));
-                var service = await nano33ble.GetServiceAsync(Guid.Parse("0000180c-0000-1000-8000-00805f9b34fb"));
-
-                //var characteristics = await service.GetCharacteristicsAsync();
-                // 		Uuid	"00002a56-0000-1000-8000-00805f9b34fb"	string
-                var characteristic = await service.GetCharacteristicAsync(Guid.Parse("00002a56-0000-1000-8000-00805f9b34fb"));
-                (byte[] data, int resultcode) = await characteristic.ReadAsync();
-
-                Debug.WriteLine($"resultcode {resultcode}");
-                Debug.WriteLine($"data {Encoding.UTF8.GetString(data)}");
-
-                Label.Text = Encoding.UTF8.GetString(data);
-
-                await adapter.DisconnectDeviceAsync(nano33ble);
-            }
-            catch (DeviceConnectionException ex)
-            {
-                throw ex;
-                // ... could not connect to device
-            }
-
-
-
-            // 0000180c-0000-1000-8000-00805f9b34fb
-
-
-
-        }
-
-        private Plugin.BLE.Abstractions.Contracts.IAdapter adapter_global = CrossBluetoothLE.Current.Adapter;
-        private Plugin.BLE.Abstractions.Contracts.IDevice nano33ble_global = null;
-        private Plugin.BLE.Abstractions.Contracts.IService nano33ble_service = null;
-        private Plugin.BLE.Abstractions.Contracts.ICharacteristic nano33ble_characteristic = null;
-
-        private async void OnGetValueFast(object sender, EventArgs e)
-        {
-            await CheckAndRequestBluetoothPermission();
-            await CheckAndRequestLocationWhenInUsePermission();
-
-            if (nano33ble_global == null )
-            {
-                nano33ble_global = await adapter_global.ConnectToKnownDeviceAsync(Guid.Parse("00000000-0000-0000-0000-ecda3b60165d"));
-            }
-
-            if (nano33ble_service == null)
-            {
-                nano33ble_service = await nano33ble_global.GetServiceAsync(Guid.Parse("0000180c-0000-1000-8000-00805f9b34fb"));
-            }
-
-            if (nano33ble_characteristic == null)
-            {
-                nano33ble_characteristic = await nano33ble_service.GetCharacteristicAsync(Guid.Parse("00002a56-0000-1000-8000-00805f9b34fb"));
-            }
-
-            (byte[] data, int resultcode) = await nano33ble_characteristic.ReadAsync();
-
-            int oiltemp = BitConverter.ToInt16(data, 0);
-            
-            Debug.WriteLine($"resultcode {resultcode}");
-            Debug.WriteLine($"data {oiltemp}");
-
-            Label.Text = oiltemp.ToString();
-        }
-
         private async void ShowOiltempBtnClicked(object sender, EventArgs e)
         {
             await CheckAndRequestBluetoothPermission();
@@ -195,6 +77,20 @@ namespace OilTempJan
         {
             Debug.WriteLine($"OnSettingsClicked");
             await Navigation.PushAsync(new SettingsPage(), true);
+        }
+
+        private async void OnContentLoaded(object sender, EventArgs e)
+        {
+            try
+            {
+                if (Preferences.Default.Get("bluetooth_id", "null") != "null")
+                {
+                    await Navigation.PushAsync(new OilTemp(), true);
+                }
+            } catch (Exception ex)
+            {
+                await DisplayAlert("Error", "Exception: " + ex.ToString() + "\nMessage: " + ex.Message + "\nBacktrace:" + ex.StackTrace.ToString(), "OK");
+            }
         }
     }
 
