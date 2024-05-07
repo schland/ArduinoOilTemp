@@ -19,6 +19,7 @@ public partial class OilTemp : ContentPage
 
     private async void OnContentLoaded(object sender, EventArgs e)
 	{
+        ActivityIndicator.IsVisible = true;
         ActivityIndicator.IsRunning = true;
 
         try
@@ -57,6 +58,7 @@ public partial class OilTemp : ContentPage
             {
                 timer.Start();
             }
+            ActivityIndicator.IsVisible = false;
             ActivityIndicator.IsRunning = false;
         } catch
         {

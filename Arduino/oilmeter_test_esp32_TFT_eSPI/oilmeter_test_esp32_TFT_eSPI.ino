@@ -225,18 +225,9 @@ void loop(void)
           temperature_reading = readTemperatureCelsius();
         #endif
 
+        oiltempCharacteristic.writeValue( temperature_reading );
         redrawScreenGauge(temperature_reading);
       }
-
-      long currentMillis = millis();
-      // if 200ms have passed, check the battery level:
-      if (currentMillis - previousMillis >= 500) {
-        previousMillis = currentMillis;
-
-        //Serial.println(value);
-        oiltempCharacteristic.writeValue( temperature_reading );
-      }
-
       
     } // keep looping while connected
     

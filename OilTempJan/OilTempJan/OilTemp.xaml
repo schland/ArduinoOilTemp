@@ -6,9 +6,11 @@
              Title="OilTemp"
              Loaded="OnContentLoaded"
              Disappearing="OnDisappearing" 
-             BackgroundColor="Black">
-    <VerticalStackLayout>
-        <ActivityIndicator x:Name="ActivityIndicator" IsRunning="false"
+             BackgroundColor="Black"
+             Padding="0">
+    <VerticalStackLayout Padding="0"
+        Spacing="0">
+        <ActivityIndicator x:Name="ActivityIndicator" IsRunning="false" 
            Color="Blue" />
         <gauge:SfRadialGauge x:Name="oiltempGauge" HorizontalOptions="Center" BackgroundColor="Black">
             <gauge:SfRadialGauge.Axes>
@@ -17,7 +19,9 @@
                                           ShowTicks="False"
                                           ShowLabels="False"
                                           EnableLoadingAnimation="True"
-                                          AnimationDuration="2000" >
+                                          AnimationDuration="2000"
+                                          CanScaleToFit="True" Margin="0"
+                                          >
                     <gauge:RadialAxis.AxisLineStyle>
                         <gauge:RadialLineStyle ThicknessUnit="Pixel" Fill="#3F3F3F"
                          Thickness="40"/>
