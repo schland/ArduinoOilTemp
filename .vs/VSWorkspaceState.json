@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Arduino",
+    "\\OilTempJan"
   ],
-  "SelectedNode": "\\C:\\Users\\janpi\\Desktop\\Projects\\ArduinoOilTemp",
+  "SelectedNode": "\\OilTempJan\\OilTempJan.sln",
   "PreviewInSolutionExplorer": false
 }

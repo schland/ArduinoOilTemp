@@ -112,7 +112,6 @@ void setup()
   Serial.begin(9600);
   
   Serial.println("Starting OilMeter Jan");
-
   Serial.flush();
 
   uint8_t start_setup_millis = millis();
@@ -152,11 +151,15 @@ void setup()
     pinMode(LED_BUILTIN, OUTPUT); // initialize the built-in LED pin
   #endif
 
+  Serial.println("starting BLE");
+  Serial.flush();
   if (!BLE.begin()) {   // initialize BLE
     Serial.println("starting BLE failed!");
     while (1);
   }
 
+  Serial.println("starting ADS");
+  Serial.flush();
   // adc init
   ads.setGain(GAIN_TWOTHIRDS);
   if (!ads.begin()) {

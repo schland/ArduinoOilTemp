@@ -21,6 +21,7 @@ public partial class OilTemp : ContentPage
 	{
         ActivityIndicator.IsVisible = true;
         ActivityIndicator.IsRunning = true;
+        ActivityIndicator.HeightRequest = 50.0;
 
         try
         {
@@ -59,10 +60,13 @@ public partial class OilTemp : ContentPage
                 timer.Start();
             }
             ActivityIndicator.IsVisible = false;
+            ActivityIndicator.HeightRequest = 0.0;
             ActivityIndicator.IsRunning = false;
         } catch
         {
             ActivityIndicator.IsRunning = false;
+            ActivityIndicator.IsVisible = false;
+            ActivityIndicator.HeightRequest = 0.0;
             await DisplayAlert("Error", "Connection to Device failed!", "OK");
         }
         
