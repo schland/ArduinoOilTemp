@@ -3,7 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="OilTempJan.SettingsPage"
              Title="Settings">
-    <VerticalStackLayout>
+    <ScrollView x:Name="scrollView"
+                   Grid.Row="1"
+                   VerticalOptions="FillAndExpand">
+        <VerticalStackLayout>
         <Label 
             Text="Settings"
             VerticalOptions="Center" 
@@ -43,4 +46,5 @@
             Clicked="ConnectBtnClicked"
             HorizontalOptions="Fill" /> 
     </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
