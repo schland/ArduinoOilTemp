@@ -26,3 +26,6 @@ The Oiltemp App is a .NET MAUI Universal application and should run under Window
 
 ## Layout
 ![Layout](https://raw.githubusercontent.com/schland/ArduinoOilTemp/main/Arduino/oiltempjan_Steckplatine.png)
+
+## Final assembly
+![Image](https://i.ibb.co/J2KqWW2/1718032015243.jpg)
