@@ -28,4 +28,7 @@ The Oiltemp App is a .NET MAUI Universal application and should run under Window
 ![Layout](https://raw.githubusercontent.com/schland/ArduinoOilTemp/main/Arduino/oiltempjan_Steckplatine.png)
 
 ## Final assembly
-![Image](https://i.ibb.co/J2KqWW2/1718032015243.jpg)
+![Image](https://i.ibb.co/Sn0thYB/Whats-App-Image-2024-06-10-at-20-31-57.jpg)
+
+## BMW E60 530d with Android Navigation
+![Image](https://i.ibb.co/JRN7nBp/Whats-App-Image-2024-06-10-at-20-31-41.jpg)
