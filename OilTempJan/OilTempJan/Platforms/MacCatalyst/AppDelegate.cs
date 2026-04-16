@@ -1,6 +1,6 @@
 ﻿using Foundation;
 
-namespace OilTempJan
+namespace OilTempJan2
 {
     [Register("AppDelegate")]
     public class AppDelegate : MauiUIApplicationDelegate

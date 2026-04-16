@@ -1,0 +1,14 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": ".NET MAUI Windows Launch",
+      "type": "coreclr",
+      "request": "launch",
+      "program": "${workspaceFolder}/OilTempJan/OilTempJan/bin/Debug/net10.0-windows10.0.20348.0/win-x64/OilTempJan.exe",
+      "cwd": "${workspaceFolder}/OilTempJan/OilTempJan",
+      "stopAtEntry": false,
+      "preLaunchTask": "build"
+    }
+  ]
+}

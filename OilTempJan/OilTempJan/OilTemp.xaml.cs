@@ -2,15 +2,15 @@ using Plugin.BLE;
 using Syncfusion.Maui.Gauges;
 using System.Diagnostics;
 
-namespace OilTempJan;
+namespace OilTempJan2;
 
 public partial class OilTemp : ContentPage
 {
     private Plugin.BLE.Abstractions.Contracts.IAdapter adapter_global = CrossBluetoothLE.Current.Adapter;
-    private Plugin.BLE.Abstractions.Contracts.IDevice nano33ble_global = null;
-    private Plugin.BLE.Abstractions.Contracts.IService nano33ble_service = null;
-    private Plugin.BLE.Abstractions.Contracts.ICharacteristic nano33ble_characteristic = null;
-    private IDispatcherTimer timer;
+    private Plugin.BLE.Abstractions.Contracts.IDevice? nano33ble_global = null;
+    private Plugin.BLE.Abstractions.Contracts.IService? nano33ble_service = null;
+    private Plugin.BLE.Abstractions.Contracts.ICharacteristic? nano33ble_characteristic = null;
+    private IDispatcherTimer? timer = null;
 
     public OilTemp()
 	{
@@ -34,12 +34,12 @@ public partial class OilTemp : ContentPage
 
             if (nano33ble_service == null)
             {
-                nano33ble_service = await nano33ble_global.GetServiceAsync(Guid.Parse("0000180c-0000-1000-8000-00805f9b34fb"));
+                nano33ble_service = await nano33ble_global!.GetServiceAsync(Guid.Parse("0000180c-0000-1000-8000-00805f9b34fb"));
             }
 
             if (nano33ble_characteristic == null)
             {
-                nano33ble_characteristic = await nano33ble_service.GetCharacteristicAsync(Guid.Parse("00002a56-0000-1000-8000-00805f9b34fb"));
+                nano33ble_characteristic = await nano33ble_service!.GetCharacteristicAsync(Guid.Parse("00002a56-0000-1000-8000-00805f9b34fb"));
             }
 
             //(byte[] data, int resultcode) = await nano33ble_characteristic.ReadAsync();
@@ -50,10 +50,14 @@ public partial class OilTemp : ContentPage
 
             if (timer is null)
             {
-                timer = Application.Current.Dispatcher.CreateTimer();
-                timer.Interval = TimeSpan.FromSeconds(1);
-                timer.Tick += (s, e) => refreshTemperature();
-                timer.Start();
+                var dispatcher = Application.Current?.Dispatcher;
+                if (dispatcher != null)
+                {
+                    timer = dispatcher.CreateTimer();
+                    timer.Interval = TimeSpan.FromSeconds(1);
+                    timer.Tick += (s, e) => refreshTemperature();
+                    timer.Start();
+                }
             }
             else
             {
@@ -62,12 +66,13 @@ public partial class OilTemp : ContentPage
             ActivityIndicator.IsVisible = false;
             ActivityIndicator.HeightRequest = 0.0;
             ActivityIndicator.IsRunning = false;
-        } catch
+        }
+        catch
         {
             ActivityIndicator.IsRunning = false;
             ActivityIndicator.IsVisible = false;
             ActivityIndicator.HeightRequest = 0.0;
-            await DisplayAlert("Error", "Connection to Device failed!", "OK");
+            await DisplayAlertAsync("Error", "Connection to Device failed!", "OK");
         }
         
     }
@@ -77,7 +82,7 @@ public partial class OilTemp : ContentPage
         try
         {
             Debug.WriteLine($"OnDisappearing");
-            if (timer != null && timer.IsRunning)
+            if (timer?.IsRunning == true)
             {
                 timer.Stop();
             }
@@ -86,7 +91,7 @@ public partial class OilTemp : ContentPage
         }
         catch (Exception ex)
         {
-            await DisplayAlert("Error", "Exception: " + ex.ToString() + "\nMessage: " + ex.Message + "\nBacktrace:" + ex.StackTrace.ToString(), "OK");
+            await DisplayAlertAsync("Error", "Exception: " + ex.ToString() + "\nMessage: " + ex.Message + "\nBacktrace:" + (ex.StackTrace?.ToString() ?? ""), "OK");
         }
     }
 
@@ -97,7 +102,10 @@ public partial class OilTemp : ContentPage
             Debug.WriteLine($"refreshTemperature()");
             MainThread.BeginInvokeOnMainThread(async () =>
             {
-                (byte[] data, int resultcode) = await nano33ble_characteristic.ReadAsync();
+                if (nano33ble_characteristic == null)
+                    return;
+
+                (byte[] data, int resultcode) = await nano33ble_characteristic!.ReadAsync();
 
                 int oiltemp = BitConverter.ToInt16(data, 0);
                 rangePointer.Value = oiltemp;
