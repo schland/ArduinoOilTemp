@@ -117,6 +117,7 @@ void setup()
   uint8_t start_setup_millis = millis();
 
   tft.init();
+  tft.setRotation(2);
 
   rre_font.init(customRect, tft.width(), tft.height()); // custom fillRect function and screen width and height values
   

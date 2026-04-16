@@ -2,22 +2,39 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <IsFirstTimeProjectOpen>False</IsFirstTimeProjectOpen>
-    <ActiveDebugFramework>net8.0-android34.0</ActiveDebugFramework>
-    <ActiveDebugProfile>Pixel 5 - API 34 (Android 14.0 - API 34)</ActiveDebugProfile>
-    <SelectedPlatformGroup>Emulator</SelectedPlatformGroup>
+    <ActiveDebugFramework>net10.0-windows10.0.20348.0</ActiveDebugFramework>
+    <ActiveDebugProfile>Windows Machine</ActiveDebugProfile>
+    <SelectedPlatformGroup>Simulator</SelectedPlatformGroup>
     <DefaultDevice>pixel_5_-_api_34</DefaultDevice>
+    <Source>C:\Users\janpi\Desktop\Projects\ArduinoOilTemp\OilTempJan\OilTempJan\Resources\Splash\oiltemp.png</Source>
+    <SmallTileSource>C:\Users\janpi\Desktop\Projects\ArduinoOilTemp\OilTempJan\OilTempJan\Resources\Splash\oiltemp.png</SmallTileSource>
+    <MediumTileSource>C:\Users\janpi\Desktop\Projects\ArduinoOilTemp\OilTempJan\OilTempJan\Resources\Splash\oiltemp.png</MediumTileSource>
+    <WideTileSource>C:\Users\janpi\Desktop\Projects\ArduinoOilTemp\OilTempJan\OilTempJan\Resources\Splash\oiltemp.png</WideTileSource>
+    <LargeTileSource>C:\Users\janpi\Desktop\Projects\ArduinoOilTemp\OilTempJan\OilTempJan\Resources\Splash\oiltemp.png</LargeTileSource>
+    <AppIconSource>C:\Users\janpi\Desktop\Projects\ArduinoOilTemp\OilTempJan\OilTempJan\Resources\Splash\oiltemp.png</AppIconSource>
+    <SplashScreenSource>C:\Users\janpi\Desktop\Projects\ArduinoOilTemp\OilTempJan\OilTempJan\Resources\Splash\oiltemp.png</SplashScreenSource>
+    <PackageLogoSource>C:\Users\janpi\Desktop\Projects\ArduinoOilTemp\OilTempJan\OilTempJan\Resources\Splash\oiltemp.png</PackageLogoSource>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-android|AnyCPU'">
     <DebuggerFlavor>ProjectDebugger</DebuggerFlavor>
   </PropertyGroup>
   <PropertyGroup Condition="'$(TargetPlatformIdentifier)'=='iOS'">
-    <RuntimeIdentifier>ios-arm64</RuntimeIdentifier>
-    <PlatformTarget>arm64</PlatformTarget>
+    <RuntimeIdentifier>iossimulator-x64</RuntimeIdentifier>
+    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-ios|AnyCPU'">
     <DebuggerFlavor>ProjectDebugger</DebuggerFlavor>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-ios|AnyCPU'">
+    <DebuggerFlavor>ProjectDebugger</DebuggerFlavor>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net10.0-ios|AnyCPU'">
+    <DebuggerFlavor>ProjectDebugger</DebuggerFlavor>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net10.0-ios|AnyCPU'">
+    <DebuggerFlavor>ProjectDebugger</DebuggerFlavor>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net10.0-maccatalyst|AnyCPU'">
     <DebuggerFlavor>ProjectDebugger</DebuggerFlavor>
   </PropertyGroup>
   <ItemGroup>
