@@ -7,7 +7,7 @@ using System.Diagnostics;
 using System.Text;
 using System.Threading;
 
-namespace OilTempJan
+namespace OilTempJan2
 {
     public partial class MainPage : ContentPage
     {
@@ -70,13 +70,15 @@ namespace OilTempJan
             await CheckAndRequestBluetoothPermission();
             await CheckAndRequestLocationWhenInUsePermission();
 
-            await Navigation.PushAsync(new OilTemp(), true);
+            if (Navigation != null)
+                await Navigation.PushAsync(new OilTemp(), true);
         }
 
         private async void OnSettingsClicked(object sender, EventArgs e)
         {
             Debug.WriteLine($"OnSettingsClicked");
-            await Navigation.PushAsync(new SettingsPage(), true);
+            if (Navigation != null)
+                await Navigation.PushAsync(new SettingsPage(), true);
         }
 
         bool first_start = true;
@@ -87,11 +89,12 @@ namespace OilTempJan
                 if (Preferences.Default.Get("bluetooth_id", "null") != "null" && first_start)
                 {
                     first_start = false;
-                    await Navigation.PushAsync(new OilTemp(), true);
+                    if (Navigation != null)
+                        await Navigation.PushAsync(new OilTemp(), true);
                 }
             } catch (Exception ex)
             {
-                await DisplayAlert("Error", "Exception: " + ex.ToString() + "\nMessage: " + ex.Message + "\nBacktrace:" + ex.StackTrace.ToString(), "OK");
+                await DisplayAlertAsync("Error", "Exception: " + ex.ToString() + "\nMessage: " + ex.Message + "\nBacktrace:" + (ex.StackTrace?.ToString() ?? ""), "OK");
             }
         }
     }

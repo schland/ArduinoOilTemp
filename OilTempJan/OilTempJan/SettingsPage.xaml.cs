@@ -3,7 +3,7 @@ using Plugin.BLE;
 using System.Diagnostics;
 using System.Text;
 
-namespace OilTempJan;
+namespace OilTempJan2;
 
 public partial class SettingsPage : ContentPage
 {
@@ -40,10 +40,10 @@ public partial class SettingsPage : ContentPage
             foreach (var device in deviceList)
             {
                 BluetoothDevice device2 = new BluetoothDevice();
-                device2.Name = device.Name;
+                device2.Name = device.Name ?? string.Empty;
                 device2.Id = device.Id;
                 devices.Add(device2);
-                Debug.WriteLine($"\t{device.Name} {device.Id} {device.State}");
+                Debug.WriteLine($"\t{(device.Name ?? "<unknown>")} {device.Id} {device.State}");
             }
 
             BluetoothDevicesListView.ItemsSource = devices.DistinctBy(x => x.Id);
@@ -52,22 +52,22 @@ public partial class SettingsPage : ContentPage
         }
         catch (Exception ex)
         {
-            await DisplayAlert("Error", "Exception: " + ex.ToString() + "\nMessage: " + ex.Message + "\nBacktrace:" + ex.StackTrace.ToString(), "OK");
+            await DisplayAlertAsync("Error", "Exception: " + ex.ToString() + "\nMessage: " + ex.Message + "\nBacktrace:" + (ex.StackTrace?.ToString() ?? ""), "OK");
         }
     }
 
-    private async void ConnectBtnClicked(object sender, EventArgs e)
+        private async void ConnectBtnClicked(object sender, EventArgs e)
     {
-        BluetoothDevice device = (BluetoothDevice)BluetoothDevicesListView.SelectedItem;
+        BluetoothDevice? device = BluetoothDevicesListView.SelectedItem as BluetoothDevice;
 
         if( device == null )
         {
-            await DisplayAlert("Info", "Please select an Item from List!", "OK");
+            await DisplayAlertAsync("Info", "Please select an Item from List!", "OK");
 
             return;
         }
 
-        Debug.WriteLine($"Selected Item: {device.Name}");
+        Debug.WriteLine($"Selected Item: {device.Name ?? "<unknown>"}");
 
         try
         {
@@ -83,7 +83,7 @@ public partial class SettingsPage : ContentPage
                 Preferences.Default.Set("bluetooth_id", device.Id.ToString());
                 await adapter.DisconnectDeviceAsync(nano33ble);
 
-                await DisplayAlert("Info", "Connection to Device successful!", "OK");
+                await DisplayAlertAsync("Info", "Connection to Device successful!", "OK");
                 await Navigation.PopAsync();
             } else
             {
@@ -92,7 +92,7 @@ public partial class SettingsPage : ContentPage
         }
         catch
         {
-            await DisplayAlert("Error", "Connection to Device failed!", "OK");
+            await DisplayAlertAsync("Error", "Connection to Device failed!", "OK");
             return;
         }
 

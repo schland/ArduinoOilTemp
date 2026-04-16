@@ -1,7 +1,7 @@
 ﻿using Android.App;
 using Android.Runtime;
 
-namespace OilTempJan
+namespace OilTempJan2
 {
     [Application]
     public class MainApplication : MauiApplication

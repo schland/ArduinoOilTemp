@@ -2,7 +2,7 @@ using Microsoft.Maui;
 using Microsoft.Maui.Hosting;
 using System;
 
-namespace OilTempJan
+namespace OilTempJan2
 {
     internal class Program : MauiApplication
     {

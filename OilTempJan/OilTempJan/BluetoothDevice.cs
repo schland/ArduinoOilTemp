@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OilTempJan
+namespace OilTempJan2
 {
     internal class BluetoothDevice
     {
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
         public Guid Id { get; set; }
 
     }

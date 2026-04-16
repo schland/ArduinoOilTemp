@@ -1,4 +1,6 @@
-﻿namespace OilTempJan
+﻿using Microsoft.Extensions.DependencyInjection;
+
+namespace OilTempJan2
 {
     public partial class App : Application
     {
@@ -8,10 +10,14 @@
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MzI2OTc4MUAzMjM1MmUzMDJlMzBhekFNZklINDJtRk1tOUoxK0NDYVMvcnRzT0JuYmRwTHR3eFJ2K2J1Q0VrPQ==");
             
             InitializeComponent();
-
-            MainPage = new NavigationPage(new MainPage());
-            
+            // Window will be created in CreateWindow override for MAUI apps
             //MainPage = new AppShell();
         }
+
+        protected override Window CreateWindow(IActivationState? activationState)
+        {
+            return new Window(new AppShell());
+        }
+
     }
 }

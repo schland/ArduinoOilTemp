@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="OilTempJan.SettingsPage"
+             x:Class="OilTempJan2.SettingsPage"
              Title="Settings">
     <ScrollView x:Name="scrollView"
                    Grid.Row="1"
@@ -18,28 +18,25 @@
             HorizontalOptions="Fill" />
         <ActivityIndicator x:Name="ActivityIndicator" IsRunning="false"
                    Color="Blue" />
-        <ListView x:Name="BluetoothDevicesListView" ItemsSource="{Binding BluetoothDevices}" HorizontalOptions="Center"
-                  SeparatorColor="LightSteelBlue" >
-            <ListView.ItemTemplate>
+        <CollectionView x:Name="BluetoothDevicesListView" ItemsSource="{Binding BluetoothDevices}" HorizontalOptions="Center">
+            <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <ViewCell>
-                        <Grid Padding="10">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            <Label Grid.Column="1"
+                    <Grid Padding="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="1"
                            Text="{Binding Name}"
                            FontAttributes="Bold" />
-                        </Grid>
-                    </ViewCell>
+                    </Grid>
                 </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
         <Button
             x:Name="ConnectBtn"
             Text="Connect" 
